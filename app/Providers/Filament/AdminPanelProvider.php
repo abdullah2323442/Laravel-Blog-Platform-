@@ -20,6 +20,9 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Filament\Navigation\NavigationItem;
+use Filament\Pages\Dashboard;
+use Filament\Navigation\MenuItem;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -29,10 +32,15 @@ class AdminPanelProvider extends PanelProvider
         
             ->default()
             ->id('admin')
-            ->path('admin')
+            ->path('dashboard')
             ->login()
             ->colors([
-                'primary' => Color::Amber,
+                'danger' => Color::Red,
+            'gray' => Color::Gray,
+            'info' => Color::Blue,
+            'primary' => Color::Indigo,
+            'success' => Color::Green,
+            'warning' => Color::Red,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -60,7 +68,20 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->sidebarCollapsibleOnDesktop()
-            ->favicon(asset('images/i.png'));
+            ->favicon(asset('images/i.png'))
+            ->brandLogo(asset('images/i.png'))
+            ->brandLogoHeight('3rem')
+            
+            
+
+            ->navigationItems([
+            NavigationItem::make('Home')
+                ->url('http://127.0.0.1:8000', shouldOpenInNewTab: true)
+                ->icon('heroicon-o-home')
+                ->group('Home')
+                ->sort(1),
+        ]);
+
             
     }
 }

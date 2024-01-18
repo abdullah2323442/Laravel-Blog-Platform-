@@ -29,6 +29,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Filament\Forms\Get;
 use Filament\Forms\Components\CanSee;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Forms\Components\CanAccess;
 
 
@@ -38,7 +39,16 @@ class PostResource extends Resource
     protected static ?string $model = Post::class;
 
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-pencil';
+
+    protected static ?string $navigationGroup = 'Blog';
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+
+    protected static ?int $sort = 1;
 
     public static function getNavigationBadge(): ?string
     {
@@ -79,8 +89,10 @@ class PostResource extends Resource
                             ->multiple()
                             ->relationship('categories', 'title'),
 
-                        DateTimePicker::make('published_at')->nullable(),
-                            
+                        DateTimePicker::make('published_at')
+                        ->nullable()
+                        ->closeOnDateSelection(),
+
 
 
                     ]
@@ -97,12 +109,12 @@ class PostResource extends Resource
                 TextColumn::make('title')->sortable()->searchable(),
                 TextColumn::make('slug')->sortable()->searchable(),
                 TextColumn::make('author.name')->sortable()->searchable(),
-                CheckboxColumn::make('published')
+                ToggleColumn::make('published')
                     ->visible(fn () => Auth::user()->isAdmin()),
                 CheckboxColumn::make('featured')
                     ->visible(fn () => Auth::user()->isAdmin()),
                 TextColumn::make('published_at')->date('Y-m-d')->sortable()->searchable(),
-                
+
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),

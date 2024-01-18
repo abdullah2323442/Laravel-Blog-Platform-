@@ -60,24 +60,23 @@
                 </div>
             @endif
 
-            <div class="flex items-center justify-end mt-4 space-x-4">
-                <a href="{{ route('login') }}" class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    {{ __('Already registered?') }}
-                </a>
-            
-                <x-button class="text-base px-6 py-3">
-                    {{ __('Register') }}
-                </x-button>
-            
-                <a href="{{ url('auth/google') }}" class="inline-flex items-center justify-center bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-md transition duration-300 ease-in-out">
-                    <img src="https://www.vectorlogo.zone/logos/google/google-icon.svg" alt="Google Logo" class="w-6 h-6 flex-shrink-0">
-                    <span class="text-base font-semibold ml-2">Continue with Google</span>
-                </a>
-            </div>
-            
+            <div class="flex items-center justify-center mt-4 space-x-2">
+                
+    <x-button class="text-base px-6 py-3">
+        {{ __('Register') }}
+    </x-button>
 
+    <a href="{{ url('auth/google') }}" class="flex items-center backdrop:bg-gray-50 hover:text-red-500">
+        <img src="https://www.vectorlogo.zone/logos/google/google-icon.svg" alt="Google Logo" class="w-6 h-6 flex-shrink-0 mr-2 stroke-cyan-500">
+        <span class="text-base font-semibold">Continue With Google</span>
+    </a>
+</div>
 
-            </div>
+<div class="flex items-center justify-center mt-4 space-x-2">
+    <a href="{{ route('login') }}" class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 ">
+        {{ __('Already registered?') }}
+    </a>
+</div>
         </form>
     </x-authentication-card>
 </x-app-layout>

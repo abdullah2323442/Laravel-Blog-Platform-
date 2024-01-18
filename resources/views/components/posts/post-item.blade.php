@@ -11,7 +11,7 @@
                 <x-posts.author :author="$post->author" size="xs" />
                 <span class="text-xs text-gray-500">. {{ $post->published_at->diffForHumans() }}</span>
             </div>
-            <h2 class="text-xl font-bold text-gray-900">
+            <h2 class="text-xl font-bold text-gray-900 transition-colors duration-300 hover:text-indigo-500">
                 <a wire:navigate href="{{ route('posts.show', $post->slug) }}">
                     {{ $post->title }}
                 </a>

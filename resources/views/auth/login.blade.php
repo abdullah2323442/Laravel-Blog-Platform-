@@ -1,63 +1,67 @@
 <x-app-layout title="Login">
-    <x-authentication-card>
+    <!-- Authentication Card -->
+    <x-authentication-card class="border transition-all duration-500 ease-in-out transform hover:border-indigo-500 hover:shadow-xl ">
+        <!-- Logo Slot -->
         <x-slot name="logo">
             <x-authentication-card-logo />
         </x-slot>
 
+        <!-- Validation Errors -->
         <x-validation-errors class="mb-4" />
 
+        <!-- Session Status -->
         @if (session('status'))
-            <div class="mb-4 text-sm font-medium text-green-600">
+            <div class="mb-4 text-sm font-semibold text-green-600">
                 {{ session('status') }}
             </div>
         @endif
 
-        <form method="POST" action="{{ route('login') }}">
+        <!-- Login Form -->
+        <form method="POST" action="{{ route('login') }}" class="space-y-6">
             @csrf
 
+            <!-- Email Input -->
             <div>
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block w-full mt-1" type="email" name="email" :value="old('email')" required
-                    autofocus autocomplete="username" />
+                <x-label for="email" value="{{ __('Email') }}" class="text-gray-700 font-semibold " />
+                <x-input id="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="username"
+                    class="block w-full mt-1 rounded-md focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-500 ease-in-out" />
             </div>
 
+            <!-- Password Input -->
             <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block w-full mt-1" type="password" name="password" required
-                    autocomplete="current-password" />
+                <x-label for="password" value="{{ __('Password') }}" class="text-gray-700 font-semibold" />
+                <x-input id="password" type="password" name="password" required autocomplete="current-password"
+                    class="block w-full mt-1 rounded-md focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-500 ease-in-out" />
             </div>
 
-            <div class="block mt-4">
-                <label for="remember_me" class="flex items-center">
-                    <x-checkbox id="remember_me" name="remember" />
-                    <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+            <!-- Remember Me Checkbox and Forgot Password Link -->
+            <div class="flex items-center justify-between">
+                <label for="remember_me" class="flex items-center text-gray-700 font-semibold">
+                    <x-checkbox id="remember_me" name="remember" class="text-indigo-500" />
+                    <span class="ml-2">{{ __('Remember me') }}</span>
                 </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
+             
                 @if (Route::has('password.request'))
-                    <a class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        href="{{ route('password.request') }}">
+                    <a href="{{ route('password.request') }}" class="text-sm text-indigo-600 hover:underline font-semibold">
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
-
-                <div class="flex items-center justify-end mt-4 space-x-4">
-                    <x-button class="text-base px-6 py-3">
-                        {{ __('Log in') }}
-                    </x-button>
-
-                    <a href="{{ url('auth/google') }}"
-                        class="inline-flex items-center justify-center bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-md transition duration-300 ease-in-out">
-                        <img src="https://www.vectorlogo.zone/logos/google/google-icon.svg" alt="Google Logo"
-                            class="w-6 h-6 flex-shrink-0">
-                        <span class="text-base font-semibold ml-2">Login with Google</span>
-                    </a>
-                </div>
-
-
-
             </div>
+
+            <!-- Login Button and Google Login Link -->
+            <div class="flex flex-col items-center mt-6 space-y-4">
+                <x-button class="w-full md:w-40 bg-indigo-500 hover:bg-indigo-600 transform transition-all duration-500 hover:scale-105">
+                    {{ __('Log in') }}
+                </x-button>
+
+                <p class="mt-4 text-sm text-gray-600 font-semibold">________________ Or continue with ________________</p>
+
+            <a href="{{ url('auth/google') }}" class="flex items-center backdrop:bg-gray-50 hover:text-red-500" >
+    <img src="https://www.vectorlogo.zone/logos/google/google-icon.svg" alt="Google Logo"
+        class="w-6 h-6 flex-shrink-0 mr-2 stroke-cyan-500">
+    <span class="text-base font-semibold">Login with Google</span>
+</a>
+     </div>
         </form>
     </x-authentication-card>
 </x-app-layout>

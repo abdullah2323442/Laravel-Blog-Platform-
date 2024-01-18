@@ -20,6 +20,19 @@ class CommentResource extends Resource
 {
     protected static ?string $model = Comment::class;
 
+    protected static ?string $navigationGroup = 'Blog';
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+
     protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-bottom-center';
 
     public static function form(Form $form): Form
