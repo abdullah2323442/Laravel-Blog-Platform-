@@ -111,7 +111,7 @@ class PostResource extends Resource
                 TextColumn::make('author.name')->sortable()->searchable(),
                 ToggleColumn::make('published')
                     ->visible(fn () => Auth::user()->isAdmin()),
-                CheckboxColumn::make('featured')
+                ToggleColumn::make('featured')
                     ->visible(fn () => Auth::user()->isAdmin()),
                 TextColumn::make('published_at')->date('Y-m-d')->sortable()->searchable(),
 
