@@ -15,13 +15,9 @@ class HomeController extends Controller
     public function __invoke(Request $request)
     {
 
-        $featuredPosts = Cache::remember('featuredPosts', now()->addDay(), function () {
-            return Post::published()->featured()->with('categories')->latest('published_at')->take(3)->get();
-        });
+        $featuredPosts = Post::published()->featured()->latest('published_at')->take(6)->get();
 
-        $latestPosts = Cache::remember('latestPosts', now()->addDay(), function () {
-            return Post::published()->with('categories')->latest('published_at')->take(9)->get();
-        });
+        $latestPosts = Post::published()->latest('published_at')->take(15)->get();
 
         return view('home', [
             'featuredPosts' => $featuredPosts,

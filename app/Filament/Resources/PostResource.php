@@ -89,12 +89,10 @@ class PostResource extends Resource
                             ->multiple()
                             ->relationship('categories', 'title'),
 
-                        DateTimePicker::make('published_at')
-                        ->nullable()
-                        ->closeOnDateSelection(),
-
-
-
+                            DateTimePicker::make('published_at')
+                            ->readonly()
+                            ->default(now()),
+                   
                     ]
 
                 ),

@@ -51,7 +51,12 @@ class Post extends Model
         return $this->belongsToMany(User::class, 'post_like')->withTimestamps();
     }
 
-   
+    public function supports()
+    {
+        return $this->belongsToMany(User::class, 'post_support')->withTimestamps();
+    }
+
+
     public function scopeWithCategory($query, string $category)
     {
         $query->whereHas('categories', function ($query) use ($category) {
@@ -95,8 +100,7 @@ class Post extends Model
         return ($isUrl) ? $this->image : Storage::disk('public')->url($this->image);
     }
     public function scopePublished($query)
-{
-    $query->where('published', true)
-        ->where('published_at', '<=', Carbon::now());
-}
+    {
+        $query->where('published', true);
+    }
 }
