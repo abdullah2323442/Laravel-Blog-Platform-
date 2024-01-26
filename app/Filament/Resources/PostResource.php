@@ -108,9 +108,10 @@ class PostResource extends Resource
                 TextColumn::make('slug')->sortable()->searchable(),
                 TextColumn::make('author.name')->sortable()->searchable(),
                 ToggleColumn::make('published')
-                    ->visible(fn () => Auth::user()->isAdmin()),
+                    ->visible(fn () => Auth::user()->isAdmin() || Auth::user()->isEditor()),
                 ToggleColumn::make('featured')
-                    ->visible(fn () => Auth::user()->isAdmin()),
+                    ->visible(fn () => Auth::user()->isAdmin() || Auth::user()->isEditor()),
+
                 TextColumn::make('published_at')->date('Y-m-d')->sortable()->searchable(),
 
             ])

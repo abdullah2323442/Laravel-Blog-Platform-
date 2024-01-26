@@ -16,25 +16,34 @@ class CommentPolicy
 
     public function view(User $user, Comment $comment): bool
     {
-        // Only allow the owner of the post or the comment author to view the comment
+        if ($user->isAdmin() || $user->isEditor()) {
+            return true;
+        }
+
         return $user->id === $comment->post->user_id || $user->id === $comment->user_id;
     }
 
     public function create(User $user): bool
     {
         // Allow anyone to create comments
-        return true;
+        return $user->isUser();
     }
 
     public function update(User $user, Comment $comment): bool
     {
-        // Only allow the owner of the comment to update it
+        if ($user->isAdmin() || $user->isEditor()) {
+            return true;
+        }
         return $user->id === $comment->user_id;
     }
 
     public function delete(User $user, Comment $comment): bool
     {
-        // Only allow the owner of the comment or the owner of the post to delete it
-        return $user->id === $comment->user_id || $user->id === $comment->post->user_id;
+        if ($user->isAdmin()||$user->isEditor()) {
+            return true;
+        }
+
+        // Check if user is the author of the post
+        return $user->id === $comment->user_id;
     }
 }
